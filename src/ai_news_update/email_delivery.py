@@ -23,11 +23,14 @@ def render_news_email(articles: list[SummarizedArticle]) -> str:
         safe_url = escape(article.url, quote=True)
         cards.append(
             "<article style='padding:16px 0;border-bottom:1px solid #ddd'>"
-            f"<h2 style='font-size:18px'><a href='{safe_url}'>{escape(article.title)}</a></h2>"
+            f"<h2 style='font-size:18px'><strong>{escape(article.title)}</strong></h2>"
             f"<p>{escape(article.summary)}</p>"
             f"<p style='color:#555;font-size:13px'>Published: {escape(article.published_at)}"
             f" | Source: {escape(article.source)}</p>"
-            f"<p><a href='{safe_url}'>Read original article</a></p>"
+            f"<p><a href='{safe_url}'>Original Source</a></p>"
+            f"<p><a href='{safe_url}' style='display:inline-block;background-color:#007bff;"
+            "color:#ffffff;padding:10px 18px;text-decoration:none;border-radius:4px;"
+            "font-weight:bold'>Read More</a></p>"
             "</article>"
         )
     return (
