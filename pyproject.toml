@@ -1,0 +1,41 @@
+[project]
+name = "ai-latest-news-update"
+version = "0.1.0"
+description = "A LangGraph agent that summarizes and emails current-day AI news."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "feedparser>=6.0.11",
+    "langchain-core>=1.0.0",
+    "langchain-groq>=0.3.2",
+    "langfuse>=3.0.0",
+    "langgraph>=0.2.60",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+    "tzdata>=2024.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "ruff>=0.9.2",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

@@ -1,0 +1,85 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ai-news-agent
+spec:
+  schedule: "0 7 * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 600
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 900
+      template:
+        spec:
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 10001
+            runAsGroup: 10001
+            fsGroup: 10001
+          containers:
+            - name: ai-news-agent
+              image: ai-news-agent:latest
+              imagePullPolicy: IfNotPresent
+              envFrom:
+                - configMapRef:
+                    name: ai-news-agent-config
+              env:
+                - name: GROQ_API_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: GROQ_API_KEY
+                - name: NEWS_RECIPIENT
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: NEWS_RECIPIENT
+                - name: EMAIL_SENDER
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: EMAIL_SENDER
+                - name: SMTP_HOST
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: SMTP_HOST
+                - name: SMTP_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: SMTP_USERNAME
+                - name: SMTP_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: SMTP_PASSWORD
+                - name: LANGFUSE_PUBLIC_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: LANGFUSE_PUBLIC_KEY
+                      optional: true
+                - name: LANGFUSE_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: ai-news-agent-secrets
+                      key: LANGFUSE_SECRET_KEY
+                      optional: true
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  cpu: "1"
+                  memory: 1Gi
+              volumeMounts:
+                - name: application-logs
+                  mountPath: /app/logs
+          volumes:
+            - name: application-logs
+              emptyDir: {}

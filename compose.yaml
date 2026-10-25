@@ -1,0 +1,8 @@
+services:
+  ai-news-agent:
+    build: .
+    env_file:
+      - .env
+    restart: "no"
+    volumes:
+      - ./logs:/app/logs

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ai-news-agent-config
+data:
+  GROQ_MODEL: "llama-3.3-70b-versatile"
+  SMTP_PORT: "587"
+  SMTP_USE_TLS: "true"
+  MAX_NEWS_COUNT: "10"
+  NEWS_TIMEZONE: "UTC"
+  LOG_LEVEL: "INFO"
+  LANGFUSE_BASE_URL: "https://cloud.langfuse.com"
