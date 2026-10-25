@@ -11,7 +11,7 @@ The implementation was based on an inspection of [Diamond-Price-Prediction](http
 1. Search Google News RSS for articles published today in `NEWS_TIMEZONE`.
 2. Discard undated, outdated, duplicate, and non-AI results; retrieve article paragraphs when available.
 3. At the summarization stage, deduplicate again, sort newest first, and select at most `MAX_NEWS_COUNT` articles (default `10`).
-4. Summarize each selected article using the configured Groq model, grounding the summary in the article title and available text.
+4. Summarize each selected article in 7–8 non-empty lines using the configured Groq model, grounding the summary in the article title and available text.
 5. Send the summaries as a multipart plain-text/HTML email. If search returns no eligible articles, finish with `no_news` and do not send an email.
 
 Search/feed failures, summarization failures, and email failures are logged and fail the run rather than being silently treated as success. Individual article-page fetch failures are logged; the RSS description is used as fallback content when available.

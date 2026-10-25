@@ -59,10 +59,12 @@ def summarize_ai_news(
         messages = [
             SystemMessage(
                 content=(
-                    "Summarize the supplied news article accurately in 2-4 concise sentences. "
-                    "State its main topic, development, and key takeaway. Use only facts in the "
-                    "provided title and article text. If details are unavailable, do not infer "
-                    "them. Do not add external facts or opinions."
+                    "Summarize the supplied news article accurately in 7-8 non-empty lines, "
+                    "preferably 7. Write one concise sentence per line, with no heading or "
+                    "bullet points. Cover the main topic, development, relevant details, and "
+                    "key takeaway. Use only facts in the provided title and article text. If "
+                    "details are unavailable, do not infer them or pad the summary with "
+                    "repetition. Do not add external facts or opinions."
                 )
             ),
             HumanMessage(
