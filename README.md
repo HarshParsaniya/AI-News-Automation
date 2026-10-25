@@ -38,7 +38,7 @@ Useful configuration:
 | Variable | Default | Purpose |
 | --- | --- | --- |
 | `GROQ_API_KEY` | — | Groq API credential |
-| `GROQ_MODEL` | `llama-3.3-70b-versatile` | Groq-compatible summarization model |
+| `GROQ_MODEL` | `qwen/qwen3.8-27b` | Groq-compatible summarization model; can be changed in `.env` |
 | `MAX_NEWS_COUNT` | `10` | Positive integer maximum articles summarized and emailed |
 | `NEWS_TIMEZONE` | `UTC` | IANA timezone used to define the publication date |
 | `NEWS_RECIPIENT`, `EMAIL_SENDER` | — | Digest recipient and sender |
@@ -51,14 +51,11 @@ Useful configuration:
 
 Logs are written to `logs/ai_news_update_YYYY-MM-DD.log` (for example, `logs/ai_news_update_2026-10-25.log`) and appended to that day's file across runs. Logs are also sent to standard output. Credentials and email passwords are not included in application log messages.
 
-## Tests and lint
+## Lint
 
 ```powershell
-uv run pytest
 uv run ruff check .
 ```
-
-Tests use in-memory fixtures and mocks; they do not call Groq, Google News, or SMTP.
 
 ## Docker Compose
 
